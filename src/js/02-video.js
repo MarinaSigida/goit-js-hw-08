@@ -3,8 +3,8 @@ import Player from '@vimeo/player';
 
 const inframe = document.querySelector('iframe');
 const player = new Player(inframe);
-const KeyStorage = 'videoplayer-current-time';
-const time = JSON.parse(localStorage.getItem(KeyStorage));
+const KEY_STORAGE = 'videoplayer-current-time';
+const time = JSON.parse(localStorage.getItem(KEY_STORAGE));
 
 // Ініціалізуй плеєр у файлі скрипта як це описано в секції pre-existing player,
 // але враховуй, що у тебе плеєр доданий як npm пакет, а не через CDN.
@@ -15,7 +15,7 @@ const time = JSON.parse(localStorage.getItem(KeyStorage));
 player.on(
   'timeupdate',
   trottle(function (data) {
-    localStorage.setItem(KeyStorage, JSON.stringify(data.seconds));
+    localStorage.setItem(KEY_STORAGE, JSON.stringify(data.seconds));
   }),
   1000
 );
@@ -27,7 +27,7 @@ player.on(
 player
   .setCurrentTime(time)
   .then(function (seconds) {
-    seconds=JSON.parse(localStorage.getItem(KeyStorage))
+    seconds=JSON.parse(localStorage.getItem(KEY_STORAGE))
     // seconds = the actual time that the player seeked to
   })
   .catch(function (error) {
