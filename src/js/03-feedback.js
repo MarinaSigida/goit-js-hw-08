@@ -6,17 +6,20 @@ const refs = {
   email: document.querySelector('.feedback-form input'),
   message: document.querySelector('.feedback-form textarea'),
 };
-const formData  = {};
+const formData = {};
 
 // Відстежуй на формі подію input, і щоразу записуй у локальне сховище об'єкт з полями email і message,
 //  у яких зберігай поточні значення полів форми. Нехай ключем для сховища буде рядок "feedback-form-state".
 
-refs.form.addEventListener('input', trottle(event =>{
-    formData[event.target.name]=event.target.value;
+refs.form.addEventListener(
+  'input',
+  trottle(event => {
+    formData[event.target.name] = event.target.value;
     localStorage.setItem(KEY_STORAGE, JSON.stringify(formData));
-}
-    ,500));
+  }, 500)
+);
 
+refs.form.addEventListener('submit', onFormSubmit);
 
 // Під час завантаження сторінки перевіряй стан сховища, і якщо там є збережені дані,
 // заповнюй ними поля форми. В іншому випадку поля повинні бути порожніми.
@@ -26,20 +29,16 @@ refs.form.addEventListener('input', trottle(event =>{
 function SavedData() {
   const StorageData = localStorage.getItem(KEY_STORAGE);
   if (StorageData) {
-    const {email, message} = JSON.parse(StorageData);
+    const { email, message } = JSON.parse(StorageData);
     refs.email.value = email;
-    refs.message.value = message;  
+    refs.message.value = message;
+  }
 }
-}
 
-// SavedData();
-
-
+SavedData();
 
 // Під час сабміту форми очищуй сховище і поля форми,
 // а також виводь у консоль об'єкт з полями email, message та їхніми поточними значеннями.
-
-
 
 function onFormSubmit(event) {
   event.preventDefault();

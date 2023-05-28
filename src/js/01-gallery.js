@@ -1,14 +1,13 @@
 // Add imports above this line
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { galleryItems } from './gallery-items';
 // Change code below this line
 
 console.log(galleryItems);
 
-
-const gallery = document.querySelector(".gallery");
+const gallery = document.querySelector('.gallery');
 
 const galleryItem = galleryItems.map(({ preview, original, description }) => {
   return `
@@ -26,15 +25,12 @@ const galleryItem = galleryItems.map(({ preview, original, description }) => {
 
 console.log(galleryItem);
 
-gallery.insertAdjacentHTML("beforeend", galleryItem.join(""));
+gallery.insertAdjacentHTML('beforeend', galleryItem.join(''));
 
-
-
-  // Modal window with simple ligthbox
-  const lightbox = new SimpleLightbox(".gallery a", {
-    // captionType: text,
-    captionsData: 'alt',
-    captionPosition:'bottom',
-    captionsDelay: 250,
-  });
-
+// Modal window with simple ligthbox
+const lightbox = new SimpleLightbox('.gallery a', {
+  // captionType: text,
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionsDelay: 250,
+});
