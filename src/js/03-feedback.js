@@ -26,16 +26,16 @@ refs.form.addEventListener('submit', onFormSubmit);
 // Зроби так, щоб сховище оновлювалось не частіше, ніж раз на 500 мілісекунд.
 // Для цього додай до проекту і використовуй бібліотеку lodash.throttle.
 
-function SavedData() {
-  const StorageData = localStorage.getItem(KEY_STORAGE);
-  if (StorageData) {
-    const { email, message } = JSON.parse(StorageData);
+function savedData() {
+  const storageData = localStorage.getItem(KEY_STORAGE);
+  if (storageData) {
+    const { email, message } = JSON.parse(storageData);
     refs.email.value = email;
     refs.message.value = message;
   }
 }
 
-SavedData();
+savedData();
 
 // Під час сабміту форми очищуй сховище і поля форми,
 // а також виводь у консоль об'єкт з полями email, message та їхніми поточними значеннями.
@@ -44,4 +44,8 @@ function onFormSubmit(event) {
   event.preventDefault();
   event.currentTarget.reset();
   localStorage.removeItem(KEY_STORAGE);
+  console.log(formData);
+  Object.getOwnPropertyNames(formData).forEach(function (prop) {
+    delete formData[prop];
+  });
 }

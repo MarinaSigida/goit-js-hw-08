@@ -16,8 +16,8 @@ player.on(
   'timeupdate',
   trottle(function (data) {
     localStorage.setItem(KEY_STORAGE, JSON.stringify(data.seconds));
-  }),
-  1000
+  },
+  1000)
 );
 
 // Під час перезавантаження сторінки скористайся методом setCurrentTime()
@@ -27,9 +27,10 @@ player.on(
 player
   .setCurrentTime(time)
   .then(function (seconds) {
+    if (localStorage.getItem(KEY_STORAGE)){
     seconds=JSON.parse(localStorage.getItem(KEY_STORAGE))
     // seconds = the actual time that the player seeked to
-  })
+  }})
   .catch(function (error) {
     switch (error.name) {
       case 'RangeError':
@@ -41,3 +42,7 @@ player
         break;
     }
   });
+
+
+  // const StorageData = localStorage.getItem(KEY_STORAGE);
+  // if (StorageData)
