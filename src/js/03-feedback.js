@@ -6,7 +6,7 @@ const refs = {
   email: document.querySelector('.feedback-form input'),
   message: document.querySelector('.feedback-form textarea'),
 };
-const formData = {};
+let formData = JSON.parse(localStorage.getItem(KEY_STORAGE)) || {};
 
 // Відстежуй на формі подію input, і щоразу записуй у локальне сховище об'єкт з полями email і message,
 //  у яких зберігай поточні значення полів форми. Нехай ключем для сховища буде рядок "feedback-form-state".
@@ -30,8 +30,8 @@ function savedData() {
   const storageData = localStorage.getItem(KEY_STORAGE);
   if (storageData) {
     const { email, message } = JSON.parse(storageData);
-    refs.email.value = email;
-    refs.message.value = message;
+    refs.email.value = email || '';
+    refs.message.value = message || '';
   }
 }
 
@@ -45,7 +45,5 @@ function onFormSubmit(event) {
   event.currentTarget.reset();
   localStorage.removeItem(KEY_STORAGE);
   console.log(formData);
-  Object.getOwnPropertyNames(formData).forEach(function (prop) {
-    delete formData[prop];
-  });
+  formData = {};
 }

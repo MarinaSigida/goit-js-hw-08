@@ -4,7 +4,7 @@ import Player from '@vimeo/player';
 const inframe = document.querySelector('iframe');
 const player = new Player(inframe);
 const KEY_STORAGE = 'videoplayer-current-time';
-const time = JSON.parse(localStorage.getItem(KEY_STORAGE));
+const time = JSON.parse(localStorage.getItem(KEY_STORAGE)) || 0;
 
 // Ініціалізуй плеєр у файлі скрипта як це описано в секції pre-existing player,
 // але враховуй, що у тебе плеєр доданий як npm пакет, а не через CDN.
@@ -26,22 +26,22 @@ player.on(
 
 player
   .setCurrentTime(time)
-  .then(function (seconds) {
-    if (localStorage.getItem(KEY_STORAGE)){
-    seconds=JSON.parse(localStorage.getItem(KEY_STORAGE))
-    // seconds = the actual time that the player seeked to
-  }})
-  .catch(function (error) {
-    switch (error.name) {
-      case 'RangeError':
-        // the time was less than 0 or greater than the video’s duration
-        break;
+  // .then(function (seconds) {
+  //   if (localStorage.getItem(KEY_STORAGE)){
+  //   seconds=JSON.parse(localStorage.getItem(KEY_STORAGE))
+  //   // seconds = the actual time that the player seeked to
+  // }})
+  // .catch(function (error) {
+  //   switch (error.name) {
+  //     case 'RangeError':
+  //       // the time was less than 0 or greater than the video’s duration
+  //       break;
 
-      default:
-        // some other error occurred
-        break;
-    }
-  });
+  //     default:
+  //       // some other error occurred
+  //       break;
+  //   }
+  // });
 
 
   // const StorageData = localStorage.getItem(KEY_STORAGE);
